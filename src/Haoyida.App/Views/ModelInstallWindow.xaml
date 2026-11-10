@@ -1,0 +1,99 @@
+<Window x:Class="Haoyida.Views.ModelInstallWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="安装第三方语音模型" Width="720" Height="760" WindowStartupLocation="CenterOwner"
+        WindowStyle="None" ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True"
+        FontFamily="{StaticResource UiFont}" ShowInTaskbar="False">
+
+    <Border Background="{StaticResource Surface0Brush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1"
+            CornerRadius="14" MouseLeftButtonDown="Root_MouseLeftButtonDown">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="36" ShadowDepth="10" Direction="270" Opacity="0.6" Color="#000000" />
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="24,20,16,8">
+                <StackPanel>
+                    <TextBlock Text="安装第三方语音模型" Style="{StaticResource H2Text}" />
+                    <TextBlock Text="支持本地命令行程序，或局域网 / 云端的 HTTP 推理服务" Style="{StaticResource CaptionText}" Margin="0,6,0,0" />
+                </StackPanel>
+                <Button Content="✕" Style="{StaticResource IconBtn}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Click="Cancel_Click" Width="36" Height="36" />
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="24,6,18,0">
+                <StackPanel>
+                    <TextBlock Text="模型名称" Style="{StaticResource LabelCaps}" Margin="0,0,0,6" />
+                    <TextBox x:Name="NameBox" Style="{StaticResource TextInput}" />
+
+                    <TextBlock Text="接入方式" Style="{StaticResource LabelCaps}" Margin="0,14,0,6" />
+                    <ComboBox x:Name="ModeBox" Style="{StaticResource Combo}" SelectedIndex="0" SelectionChanged="Mode_Changed">
+                        <ComboBoxItem Content="本地命令行（调用模型自带脚本/exe）" />
+                        <ComboBoxItem Content="HTTP 服务（POST 到推理接口）" />
+                    </ComboBox>
+
+                    <TextBlock x:Name="CommandLabel" Text="命令模板" Style="{StaticResource LabelCaps}" Margin="0,14,0,6" />
+                    <TextBox x:Name="CommandBox" Style="{StaticResource TextArea}" MinHeight="74" />
+                    <TextBlock x:Name="CommandHint" Style="{StaticResource CaptionText}" Margin="0,6,0,0" TextWrapping="Wrap"
+                               Text="占位符：{text} 文本、{out} 输出 wav 路径、{voice} 音色、{speed} 语速。例：python run_tts.py --text {text} --out {out} --voice {voice}" />
+
+                    <StackPanel x:Name="HttpPanel" Visibility="Collapsed">
+                        <TextBlock Text="请求体模板（JSON）" Style="{StaticResource LabelCaps}" Margin="0,14,0,6" />
+                        <TextBox x:Name="BodyBox" Style="{StaticResource TextArea}" MinHeight="66" />
+                    </StackPanel>
+
+                    <TextBlock Text="音色列表（逗号分隔）" Style="{StaticResource LabelCaps}" Margin="0,14,0,6" />
+                    <TextBox x:Name="VoiceBox" Style="{StaticResource TextInput}" Text="default" />
+
+                    <Grid Margin="0,14,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,0,6,0">
+                            <TextBlock Text="许可证 / 授权说明" Style="{StaticResource LabelCaps}" Margin="0,0,0,6" />
+                            <TextBox x:Name="LicenseBox" Style="{StaticResource TextInput}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                            <TextBlock Text="工作目录（可选）" Style="{StaticResource LabelCaps}" Margin="0,0,0,6" />
+                            <TextBox x:Name="WorkDirBox" Style="{StaticResource TextInput}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="备注" Style="{StaticResource LabelCaps}" Margin="0,14,0,6" />
+                    <TextBox x:Name="NotesBox" Style="{StaticResource TextInput}" />
+
+                    <Border Style="{StaticResource Panel}" Background="#1AF59E0B" BorderBrush="#33F59E0B" Margin="0,16,0,0">
+                        <TextBlock TextWrapping="Wrap" FontSize="11.5" LineHeight="19" Foreground="{StaticResource TextDimBrush}">
+                            <Run Text="安全提示：" Foreground="#F59E0B" />
+                            <Run Text="命令行模式会在本机执行你填写的命令，请只安装可信来源的模型；第三方模型的版权与公播授权由安装者自行负责。" />
+                        </TextBlock>
+                    </Border>
+
+                    <TextBlock x:Name="StatusText" FontSize="11.5" Margin="0,12,0,0" TextWrapping="Wrap"
+                               Foreground="{StaticResource AccentBrush}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Row="2" Margin="24,12,24,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="TestBtn" Grid.Column="0" Content="用示例文本测试" Style="{StaticResource SecondaryBtn}"
+                        Click="Test_Click" Height="40" />
+                <Button Grid.Column="2" Content="取消" Style="{StaticResource GhostBtn}" Click="Cancel_Click"
+                        Height="40" Margin="0,0,8,0" />
+                <Button Grid.Column="3" Content="保存并安装" Style="{StaticResource PrimaryBtn}" Click="Save_Click" Height="40" />
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

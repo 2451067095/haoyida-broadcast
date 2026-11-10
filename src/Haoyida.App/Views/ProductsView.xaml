@@ -1,0 +1,179 @@
+<UserControl x:Class="Haoyida.Views.ProductsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Haoyida.ViewModels">
+    <UserControl.Resources>
+        <vm:KeyToBrush x:Key="KeyBrush" />
+        <vm:BoolToVisibility x:Key="BoolToVis" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="392" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Style="{StaticResource Card}" Margin="0,0,14,0" Padding="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="20,18,20,10">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="促销商品" Style="{StaticResource H3Text}" VerticalAlignment="Center" />
+                        <Border Style="{StaticResource Chip}" Margin="10,0,0,0">
+                            <TextBlock FontSize="11" Foreground="{StaticResource TextDimBrush}">
+                                <Run Text="{Binding Products.Count, Mode=OneWay}" /><Run Text=" 个" />
+                            </TextBlock>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="下载导入模板" Style="{StaticResource GhostBtn}" Padding="12,7" FontSize="11.5"
+                                Command="{Binding DownloadProductTemplateCommand}" />
+                        <Button Content="从 Excel 导入" Style="{StaticResource SecondaryBtn}" Padding="12,7" FontSize="11.5"
+                                Margin="8,0,0,0" Command="{Binding ImportProductsCommand}" />
+                        <Button Content="+ 新增商品" Style="{StaticResource PrimaryBtn}" Padding="14,7" Margin="8,0,0,0"
+                                Command="{Binding NewProductCommand}" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="20,4,20,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="商品" Style="{StaticResource LabelCaps}" />
+                    <TextBlock Grid.Column="1" Text="原价" Style="{StaticResource LabelCaps}" />
+                    <TextBlock Grid.Column="2" Text="促销价" Style="{StaticResource LabelCaps}" />
+                    <TextBlock Grid.Column="3" Text="节省" Style="{StaticResource LabelCaps}" />
+                    <TextBlock Grid.Column="4" Text="单位" Style="{StaticResource LabelCaps}" Width="42" />
+                </Grid>
+
+                <ListBox Grid.Row="2" Style="{StaticResource PlainList}" ItemsSource="{Binding ProductView}"
+                         SelectedItem="{Binding SelectedProduct, Mode=TwoWay}" Margin="10,0,10,10">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Transparent" CornerRadius="8" Padding="10,9">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2.2*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold"
+                                                   Foreground="{StaticResource TextBrush}" />
+                                        <TextBlock Text="{Binding Category}" FontSize="10.5" Margin="0,2,0,0"
+                                                   Foreground="{StaticResource TextFaintBrush}" />
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="{Binding OriginalPrice, StringFormat=￥{0:0.##}}" FontSize="12.5"
+                                               VerticalAlignment="Center" Foreground="{StaticResource TextFaintBrush}"
+                                               TextDecorations="Strikethrough" />
+                                    <TextBlock Grid.Column="2" Text="{Binding PriceText}" FontSize="13" FontWeight="SemiBold"
+                                               VerticalAlignment="Center" Foreground="{StaticResource OkBrush}" />
+                                    <TextBlock Grid.Column="3" Text="{Binding SaveText}" FontSize="11.5"
+                                               VerticalAlignment="Center" Foreground="{StaticResource WarnBrush}" />
+                                    <TextBlock Grid.Column="4" Text="{Binding Unit}" FontSize="12" Width="42"
+                                               VerticalAlignment="Center" Foreground="{StaticResource TextDimBrush}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1" Style="{StaticResource Card}" Padding="20">
+            <Grid>
+                <StackPanel Visibility="{Binding HasSelectedProduct, Converter={StaticResource BoolToVis}, ConverterParameter=invert}"
+                            VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="选择商品查看与编辑" Style="{StaticResource BodyText}" />
+                </StackPanel>
+
+                <Grid Visibility="{Binding HasSelectedProduct, Converter={StaticResource BoolToVis}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="商品信息" Style="{StaticResource H3Text}" Margin="0,0,0,14" />
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Text="商品名称" Style="{StaticResource LabelCaps}" Margin="0,0,0,6" />
+                            <TextBox Style="{StaticResource TextInput}" Text="{Binding SelectedProduct.Name, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <Grid Margin="0,14,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="0,0,6,0">
+                                    <TextBlock Text="分类" Style="{StaticResource LabelCaps}" Margin="0,0,0,6" />
+                                    <TextBox Style="{StaticResource TextInput}" Text="{Binding SelectedProduct.Category, UpdateSourceTrigger=PropertyChanged}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                                    <TextBlock Text="单位" Style="{StaticResource LabelCaps}" Margin="0,0,0,6" />
+                                    <TextBox Style="{StaticResource TextInput}" Text="{Binding SelectedProduct.Unit, UpdateSourceTrigger=PropertyChanged}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Margin="0,14,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="0,0,6,0">
+                                    <TextBlock Text="原价" Style="{StaticResource LabelCaps}" Margin="0,0,0,6" />
+                                    <TextBox Style="{StaticResource TextInput}" Text="{Binding SelectedProduct.OriginalPrice, UpdateSourceTrigger=PropertyChanged}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                                    <TextBlock Text="促销价" Style="{StaticResource LabelCaps}" Margin="0,0,0,6" />
+                                    <TextBox Style="{StaticResource TextInput}" Text="{Binding SelectedProduct.PromoPrice, UpdateSourceTrigger=PropertyChanged}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <TextBlock Text="促销短语（可空）" Style="{StaticResource LabelCaps}" Margin="0,14,0,6" />
+                            <TextBox Style="{StaticResource TextInput}" Text="{Binding SelectedProduct.PromoText, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <Border Style="{StaticResource Panel}" Margin="0,16,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="自动生成的播报词" Style="{StaticResource LabelCaps}" />
+                                    <TextBlock Text="{Binding ProductLine}" Margin="0,8,0,0" FontSize="12.5" TextWrapping="Wrap"
+                                               LineHeight="21" Foreground="{StaticResource TextDimBrush}" />
+                                </StackPanel>
+                            </Border>
+
+                            <TextBlock Text="价格会按中文口语读法播报：9.9 → 九块九，19.8 → 十九块八"
+                                       Style="{StaticResource CaptionText}" Margin="0,10,0,0" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="2" Margin="0,14,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="试听" Style="{StaticResource SecondaryBtn}"
+                                    Command="{Binding PreviewProductCommand}" FontSize="12.5" />
+                            <Button Grid.Column="1" Content="删除" Style="{StaticResource DangerBtn}" Margin="8,0,0,0"
+                                    Command="{Binding DeleteProductCommand}" FontSize="12.5" />
+                        </Grid>
+                        <Button Content="生成播报文案并去编辑" Style="{StaticResource PrimaryBtn}" Margin="0,8,0,0"
+                                Command="{Binding GenerateProductCommand}" FontSize="12.5" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,106 @@
+<UserControl x:Class="Haoyida.Views.LogoMark"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="64" Height="64">
+    <!-- 毛玻璃大喇叭：玻璃底座 + 磨砂高光斑 + 内阴影 + 玻璃边光 + 声波 -->
+    <Viewbox Stretch="Uniform">
+        <Grid Width="64" Height="64">
+            <!-- 玻璃底座 -->
+            <Border CornerRadius="16">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0.15,0" EndPoint="0.85,1">
+                        <GradientStop Color="#2E77B8" Offset="0" />
+                        <GradientStop Color="#0F5FAE" Offset="0.42" />
+                        <GradientStop Color="#0A3F75" Offset="0.74" />
+                        <GradientStop Color="#061C33" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <!-- 磨砂高光斑（左上角，模糊后像玻璃反光） -->
+            <Ellipse Width="46" Height="38" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-4,-6,0,0">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#B3FFFFFF" Offset="0" />
+                        <GradientStop Color="#33FFFFFF" Offset="0.55" />
+                        <GradientStop Color="#00FFFFFF" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.Effect>
+                    <BlurEffect Radius="7" />
+                </Ellipse.Effect>
+            </Ellipse>
+
+            <!-- 斜向玻璃质感 -->
+            <Border CornerRadius="16">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0.75,1">
+                        <GradientStop Color="#59FFFFFF" Offset="0" />
+                        <GradientStop Color="#1FFFFFFF" Offset="0.28" />
+                        <GradientStop Color="#00FFFFFF" Offset="0.58" />
+                        <GradientStop Color="#0DFFFFFF" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <!-- 底部内阴影 -->
+            <Border CornerRadius="16">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0.55" EndPoint="0,1">
+                        <GradientStop Color="#00000000" Offset="0" />
+                        <GradientStop Color="#4D000000" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <!-- 玻璃边光 -->
+            <Border CornerRadius="16" BorderThickness="1.3">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                        <GradientStop Color="#E6FFFFFF" Offset="0" />
+                        <GradientStop Color="#40FFFFFF" Offset="0.42" />
+                        <GradientStop Color="#0AFFFFFF" Offset="0.7" />
+                        <GradientStop Color="#4DFFFFFF" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+            </Border>
+
+            <!-- 喇叭后方冷光 -->
+            <Ellipse Width="34" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#8C9FDCFF" Offset="0" />
+                        <GradientStop Color="#009FDCFF" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.Effect>
+                    <BlurEffect Radius="6" />
+                </Ellipse.Effect>
+            </Ellipse>
+
+            <!-- 喇叭本体 -->
+            <Canvas Width="64" Height="64">
+                <Path Data="M15,38 L15,47.5 Q15,49.5 17,49.5 L21.5,49.5 L21.5,38 Z" Fill="#D9FFFFFF" />
+                <Path Data="M12.5,27.5 H26 V37.5 H12.5 A2.6,2.6 0 0 1 12.5,27.5 Z" Fill="#F5FFFFFF" />
+                <Path Data="M26,26.4 L43.5,17.2 Q45,16.4 45,18.1 V46.9 Q45,48.6 43.5,47.8 L26,38.6 Z">
+                    <Path.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFFFFFFF" Offset="0" />
+                            <GradientStop Color="#D6ECFBFF" Offset="0.5" />
+                            <GradientStop Color="#A6CDEEFF" Offset="1" />
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                </Path>
+                <!-- 号角内壁投影 -->
+                <Path Data="M41.4,22.8 Q42.6,22.4 42.6,24 V41 Q42.6,42.6 41.4,42.2 Z" Fill="#4D0C5CAB" />
+                <!-- 声波 -->
+                <Path Data="M49.5,25.5 A7.5,7.5 0 0 1 49.5,38.5"
+                      Stroke="#CCEFFFFF" StrokeThickness="2.4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                <Path Data="M54,21 A12.5,12.5 0 0 1 54,43"
+                      Stroke="#8CE3F8FF" StrokeThickness="2.2" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                <!-- 喇叭顶部高光 -->
+                <Path Data="M27,27.6 L43,19.2" Stroke="#B3FFFFFF" StrokeThickness="1.4" StrokeStartLineCap="Round" />
+            </Canvas>
+        </Grid>
+    </Viewbox>
+</UserControl>

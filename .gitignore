@@ -1,0 +1,21 @@
+# 构建产物
+dist/
+**/bin/
+**/obj/
+*.user
+
+# 安装包载荷（333MB，构建时由脚本生成）
+src/Haoyida.Setup/payload.zip
+
+# 运行时日志
+*.log
+
+# IDE
+.vs/
+.idea/
+*.suo
+
+# 系统
+Thumbs.db
+desktop.ini
+.DS_Store

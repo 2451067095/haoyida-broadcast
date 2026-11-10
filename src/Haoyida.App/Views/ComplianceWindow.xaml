@@ -1,0 +1,131 @@
+<Window x:Class="Haoyida.Views.ComplianceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="背景音乐版权合规提醒" Width="760" Height="820" WindowStartupLocation="CenterOwner"
+        WindowStyle="None" ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True"
+        FontFamily="{StaticResource UiFont}" ShowInTaskbar="False">
+
+    <Border Background="{StaticResource Surface0Brush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1"
+            CornerRadius="14" MouseLeftButtonDown="Root_MouseLeftButtonDown">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="40" ShadowDepth="10" Direction="270" Opacity="0.6" Color="#000000" />
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- 头部 -->
+            <Grid Grid.Row="0" Margin="26,22,18,10">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="{StaticResource WarnSoftBrush}" CornerRadius="999" Padding="10,4" VerticalAlignment="Center">
+                            <TextBlock Text="合规提醒" FontSize="11" Foreground="{StaticResource WarnBrush}" />
+                        </Border>
+                        <TextBlock Text="门店背景音乐版权" FontSize="13" Margin="10,0,0,0" VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextFaintBrush}" />
+                    </StackPanel>
+                    <TextBlock Text="店里放歌，别再用个人会员" Style="{StaticResource H2Text}" Margin="0,12,0,0" />
+                    <TextBlock Text="个人会员 ≠ 公播授权" FontSize="12.5" Margin="0,6,0,0" Foreground="{StaticResource WarnBrush}" />
+                </StackPanel>
+                <Button Content="✕" Style="{StaticResource IconBtn}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Click="Close_Click" Width="36" Height="36" />
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="26,4,20,0">
+                <StackPanel>
+                    <TextBlock TextWrapping="Wrap" LineHeight="22" FontSize="12.5" Foreground="{StaticResource TextDimBrush}">
+                        超市、水果店、便利店、餐饮门店的老板请注意：用手机里的音乐 App 个人会员，在店里循环播放背景音乐，
+                        很可能已经构成著作权侵权。
+                    </TextBlock>
+
+                    <TextBlock Text="一、为什么" Style="{StaticResource StrongText}" Margin="0,18,0,8" />
+                    <TextBlock TextWrapping="Wrap" LineHeight="22" FontSize="12.5" Foreground="{StaticResource TextDimBrush}">
+                        在营业场所用音响、电视、电脑向顾客播放音乐，法律上属于“机械表演”，落进《著作权法》第十条第九项的表演权
+                        ——“公开表演作品，以及用各种手段公开播送作品的表演”。第四十五条同时规定：将录音制品通过传送声音的技术设备
+                        向公众公开播送的，应当向录音制作者支付报酬。也就是说，一首歌牵着两类权利人：词曲作者（表演权）和录音制作者
+                        （获酬权），两头都得授权。
+                    </TextBlock>
+
+                    <TextBlock Text="二、三个最常见的误区" Style="{StaticResource StrongText}" Margin="0,18,0,8" />
+                    <StackPanel>
+                        <TextBlock TextWrapping="Wrap" LineHeight="21" FontSize="12.5" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,8">
+                            <Run Text="1. “我充了会员，就能在店里放。”" Foreground="#FAFAFA" />
+                            <Run Text=" 会员协议只允许个人、非商业使用；平台拿到的主要是信息网络传播权，并不包含表演权，无权授权你公播。" />
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" LineHeight="21" FontSize="12.5" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,8">
+                            <Run Text="2. “我买的是正版 CD 或付费下载。”" Foreground="#FAFAFA" />
+                            <Run Text=" 只能证明复制件来源合法，不等于取得表演权。" />
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" LineHeight="21" FontSize="12.5" Foreground="{StaticResource TextDimBrush}">
+                            <Run Text="3. “我没单独收费，声音也放得很小。”" Foreground="#FAFAFA" />
+                            <Run Text=" 商业场所向不特定顾客播放即属公开表演，与是否收费、音量大小无关。" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <Border Style="{StaticResource Panel}" Margin="0,18,0,0" Background="#1AF59E0B" BorderBrush="#33F59E0B">
+                        <StackPanel>
+                            <TextBlock Text="三、真实判例" Style="{StaticResource StrongText}" Foreground="{StaticResource WarnBrush}" />
+                            <TextBlock TextWrapping="Wrap" LineHeight="21" FontSize="12.5" Margin="0,6,0,0" Foreground="{StaticResource TextDimBrush}">
+                                某烟酒店长期在店内播放一首歌曲，被权利人起诉侵犯表演权，法院判赔经济损失及合理开支共计 7000 元；
+                                更早的首例商家背景音乐案判赔 1700 元。近年来，集体管理组织批量维权已成常态。
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="四、合规只要三步" Style="{StaticResource StrongText}" Margin="0,18,0,8" />
+                    <StackPanel>
+                        <TextBlock TextWrapping="Wrap" LineHeight="21" FontSize="12.5" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,8">
+                            <Run Text="1. 办许可：" Foreground="#FAFAFA" />
+                            <Run Text="向中国音乐著作权协会申请词曲表演权许可，向中国音像著作权集体管理协会办理录音制品付酬，按营业面积计年费。" />
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" LineHeight="21" FontSize="12.5" Foreground="{StaticResource TextDimBrush}" Margin="0,0,0,8">
+                            <Run Text="2. 买公播：" Foreground="#FAFAFA" />
+                            <Run Text="或购买音乐平台的“线下公播”授权，务必确认授权书写明门店公开表演，而不只是短视频、直播商用。" />
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" LineHeight="21" FontSize="12.5" Foreground="{StaticResource TextDimBrush}">
+                            <Run Text="3. 留凭证：" Foreground="#FAFAFA" />
+                            <Run Text="合同、发票、许可证一并存档，检查时可当场出示。" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <TextBlock Text="五、正版申请入口" Style="{StaticResource StrongText}" Margin="0,18,0,8" />
+                    <WrapPanel>
+                        <Button Content="音著协 mcsc.com.cn" Style="{StaticResource GhostBtn}" Padding="10,6" FontSize="11.5"
+                                Margin="0,0,6,6" Tag="https://www.mcsc.com.cn" Click="OpenLink_Click" />
+                        <Button Content="音集协 cavca.org" Style="{StaticResource GhostBtn}" Padding="10,6" FontSize="11.5"
+                                Margin="0,0,6,6" Tag="https://www.cavca.org" Click="OpenLink_Click" />
+                        <Button Content="网易云 · 云村交易所" Style="{StaticResource GhostBtn}" Padding="10,6" FontSize="11.5"
+                                Margin="0,0,6,6" Tag="https://music.163.com/st/web-sublicense/home" Click="OpenLink_Click" />
+                        <Button Content="腾讯音乐 · 曲易买" Style="{StaticResource GhostBtn}" Padding="10,6" FontSize="11.5"
+                                Margin="0,0,6,6" Tag="https://quyimai.qq.com" Click="OpenLink_Click" />
+                    </WrapPanel>
+                    <TextBlock TextWrapping="Wrap" LineHeight="21" FontSize="12" Margin="0,10,0,0" Foreground="{StaticResource TextFaintBrush}">
+                        费用参考：200 平方米超市，按单曲授权约 1310 元/年（词曲 530 元 + 录音 780 元）；按营业面积的一揽子许可通常更低。
+                    </TextBlock>
+
+                    <Border Style="{StaticResource Panel}" Margin="0,18,0,0">
+                        <StackPanel>
+                            <TextBlock Text="六、一句话提醒" Style="{StaticResource StrongText}" />
+                            <TextBlock Text="背景音乐不是免费的氛围，而是一项需要付费的授权。别等收到律师函，才想起来关掉音箱。"
+                                       TextWrapping="Wrap" LineHeight="21" FontSize="12.5" Margin="0,6,0,0"
+                                       Foreground="{StaticResource TextDimBrush}" />
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="本宣传仅供普法参考，不构成法律意见；许可范围与费用以各机构书面文件为准。"
+                               TextWrapping="Wrap" FontSize="11" Margin="0,16,0,0" Foreground="{StaticResource TextFaintBrush}" />
+                    <TextBlock Text="提示：本软件内置的三首背景音乐由本项目原创合成，可放心在门店使用。"
+                               TextWrapping="Wrap" FontSize="11" Margin="0,6,0,18" Foreground="{StaticResource OkBrush}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Row="2" Margin="26,12,26,20">
+                <Button Content="我已知晓" Style="{StaticResource PrimaryBtn}" Height="40" Click="Close_Click" />
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
